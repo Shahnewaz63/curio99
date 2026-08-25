@@ -1,0 +1,40 @@
+CREATE TABLE `orders` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`orderId` varchar(32) NOT NULL,
+	`fullName` varchar(160) NOT NULL,
+	`phone` varchar(32) NOT NULL,
+	`email` varchar(320) NOT NULL,
+	`address` text NOT NULL,
+	`deliveryLocation` enum('dhaka','outside') NOT NULL,
+	`quantity` int NOT NULL,
+	`note` text,
+	`paymentMethod` enum('cod','bkash') NOT NULL,
+	`bkashNumber` varchar(32),
+	`transactionId` varchar(128),
+	`bookPrice` int NOT NULL,
+	`deliveryCharge` int NOT NULL,
+	`total` int NOT NULL,
+	`paymentStatus` varchar(64) NOT NULL,
+	`status` enum('confirmation_pending','confirmed','processing','shipped','delivered','cancelled') NOT NULL DEFAULT 'confirmation_pending',
+	`sheetSyncState` enum('pending','synced','failed') NOT NULL DEFAULT 'pending',
+	`sheetSyncError` text,
+	`sheetSyncedAt` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `orders_id` PRIMARY KEY(`id`),
+	CONSTRAINT `orders_orderId_unique` UNIQUE(`orderId`)
+);
+--> statement-breakpoint
+CREATE TABLE `users` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`openId` varchar(64) NOT NULL,
+	`name` text,
+	`email` varchar(320),
+	`loginMethod` varchar(64),
+	`role` enum('user','admin') NOT NULL DEFAULT 'user',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	`lastSignedIn` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `users_id` PRIMARY KEY(`id`),
+	CONSTRAINT `users_openId_unique` UNIQUE(`openId`)
+);

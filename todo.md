@@ -1,0 +1,91 @@
+- [x] Upload and use the supplied 99 Life Hacks cover image.
+- [x] Rebuild the top section around the cover with Order and Preview actions below it.
+- [x] Keep the site’s dark navy background instead of a white preview section.
+- [x] Resize the preview stage to the same 1413:2000 cover aspect ratio.
+- [x] Verify responsive layout and save an updated checkpoint.
+- [x] Replace the hero’s ivory surround with the standard deep navy background and verify the result.
+- [x] Simplify the preview to the headline and portrait page, with the order action below it.
+- [x] Extract, optimize, and integrate the supplied PDF pages into the preview reader.
+- [x] Replace the brand logo with the supplied logo and refine the hero Order button.
+- [x] Replace the logo with the supplied symbol and add the typed “urio” wordmark.
+- [x] Replace the current lockup with the supplied full Curio logo image.
+- [x] Remove only the website-added logo rectangle while preserving the supplied logo asset unchanged.
+- [x] Replace the current Curio logo with the newly supplied final logo asset.
+- [x] Replace the current Curio logo with the supplied LOGO5 asset.
+- [x] Replace the logo with final5 and add a high-contrast visibility frame.
+- [x] Remove the logo frame and implement the transparent Curio lockup with green-red C and ivory URIO lettering.
+- [x] Replace the C mark with the supplied yellow-and-blue symbol and retain a typed URIO wordmark.
+- [x] Consolidate the lowercase urio wordmark at 36 px and 700 weight.
+- [x] Superseded: standalone yellow-and-blue C-only logo state was replaced by the later corner-based logo layout.
+- [x] Move the C symbol to the top-left, navigation control to the top-right, and add a bottom-right C plus URIO lockup.
+- [x] Move the C symbol to the top-left, navigation control to the top-right, and add a bottom-right C plus URIO lockup.
+- [x] Replace the C logo with logo12 and add a high-contrast button-inspired background treatment beneath the book cover.
+- [x] Remove the footer Curio lockup and add a plain Curio heading above the independent-imprint paragraph.
+- [x] Add the supplied Shahnewaz and Arif portraits to their About-section cards.
+- [x] Create dedicated order-success and order-tracking pages with return-home and status actions.
+- [x] Store the Google Sheets service-account credential as a protected project secret.
+- [x] Create persistent order records and owner-only admin access controls.
+- [x] Replace browser-only order and tracking storage with database-backed flows.
+- [x] Add protected admin order listing and status updates by order ID.
+- [x] Synchronize order creation and status updates to the supplied Google Sheet.
+- [x] Diagnose and fix the reported Google Sheets order synchronization failure.
+- [x] Diagnose and fix the reported Google Sheets order synchronization failure.
+- [x] Fix Google Sheet updates when an order status changes in the admin dashboard.
+- [x] Explain cancelled status as customer cancellation or invalid customer information in customer-facing tracking.
+- [x] Verify existing Sheet1 order rows show matching Processing and Delivered statuses with the corrected 19-column schema.
+- [x] Run final type, unit, credential-access, build, and visual verification after the status-sync correction.
+- [x] Repair the “Order after reading” action beneath the book preview.
+- [x] Remove the duplicate tracking entry beneath the preview and route the remaining Track Order control to the tracking page.
+- [x] Add the “02” label to the Preview section heading.
+- [x] Add a “03 Track order” control that opens the dedicated tracking page.
+- [x] Verify and correct the Preview section visual-editor font-size changes, then checkpoint the result.
+- [x] Verify and correct the Preview section’s 37 px visual-editor typography change, then checkpoint the result.
+- [x] Repair the Order after reading and Track order buttons beneath the Preview section.
+- [x] Verify and apply the requested mission, team, and footer content updates from the visual editor.
+- [x] Replace remaining customer-facing Lumen references with Curio.
+- [x] Set the book price to ৳249 and show a precise 15% discount in the homepage hero.
+- [x] Require a transaction ID whenever bKash is selected.
+- [x] Add a WhatsApp icon beside the footer contact number.
+- [x] Add owner-only order deletion that removes the matching Google Sheet row and persistent order record.
+- [x] Change the project and storefront title to Curio only, without a Bookstore suffix.
+- [x] Replace the generic footer message icon with the supplied WhatsApp logo beside the contact number.
+- [x] Replace the 15% discount badge with struck-through ৳299 and current ৳249 pricing.
+- [x] Diagnose delayed loading of the book preview pages and verify they render after the managed-preview restart.
+- [x] Restore rendering of the book preview in the Manus web preview when it remains stuck loading.
+- [x] Replace the footer WhatsApp logo with the newly supplied icon and refine its visual sizing.
+- [x] Diagnose and repair loading delays across the homepage and all subpages.
+- [x] Add secure credential-based owner sign-in for the admin panel without exposing credentials in source.
+- [x] Document the supplied WhatsApp logo path for use in a local VSCode project.
+- [x] Restore local VSCode order placement and order tracking without a hosted-services connection error.
+- [x] Fix rejected credential-based admin sign-in in local VSCode development.
+- [x] Diagnose and repair the remaining VSCode runtime error.
+- [x] Enable and document optional Google Sheets synchronization for localhost development.
+- [x] Add a minimalist Drive PDF button between the preview order and Track Order controls.
+- [x] Diagnose and fix VSCode-wide API and function failures across local startup, checkout, tracking, and admin access.
+- [x] Normalize checkout and tracking phone formats consistently for local and hosted order lookup.
+- [x] Allow local credential-admin sessions to work when hosted OAuth configuration is intentionally absent, then complete clean HTTP workflow validation.
+- [x] Diagnose and restore local VSCode Google Sheets connection and order-update synchronization.
+- [x] Add a safe local configuration-status check and recovery guidance for Sheets setup failures.
+- [x] Verify clean local `.env.local`-style Sheets synchronization through order creation and status update using an isolated verification order.
+- [x] Verify local status diagnostics for both valid and invalid Sheets configuration states.
+- [x] Diagnose why the full-stack Curio application fails after deployment to Vercel and document or implement a compatible deployment path.
+- [x] Migrate persistent order history from the current MySQL-oriented layer to protected PostgreSQL connectivity.
+- [x] Apply the compatible PostgreSQL schema for user and order history without deleting existing data.
+- [x] Color-code order statuses: yellow for confirmation pending, green for processing/shipped/delivered, and red for cancelled.
+- [x] Add protected multi-select bulk status updates and bulk deletion to the order administration dashboard.
+- [x] Validate PostgreSQL persistence, authorization, status display, and bulk order actions.
+- [x] Replace oversized in-project Navid and SNZ portrait files with the user-supplied managed storage assets, without further GitHub collaboration.
+- [x] Make Neon PostgreSQL the explicit persistent order-history backend for hosted and VSCode environments.
+- [x] Standardize a portable `.env.local` setup for Neon PostgreSQL and optional Google Sheets synchronization.
+- [x] Diagnose and repair the VSCode Google Sheets connection and retry flow without affecting hosted orders.
+- [x] Validate Neon order persistence and configured local Sheets synchronization end to end.
+- [x] Verify the Neon-backed VSCode Sheets retry flow end to end after correcting a failed configuration.
+- [x] Add regression coverage for recovering a failed Sheets sync through the protected retry procedure.
+- [x] Remove the “Read the story” calls to action from both About-section profile cards.
+- [x] Add “Designed by Shahnewaz” to the site footer.
+- [x] Store the credential-admin identifier and a one-way password hash in Neon PostgreSQL, without readable credential disclosure.
+- [x] Verify credential-admin login reads the secure Neon record and cannot reveal its password hash or source password.
+- [x] Configure Neon PostgreSQL sessions and Curio order displays for Bangladesh Standard Time (Asia/Dhaka).
+- [x] Verify existing and new order timestamps render correctly in Bangladesh Standard Time without changing their stored instants.
+- [x] Save and synchronize the complete current Curio project state to the connected GitHub repository.
+- [x] Confirm the remote GitHub branch contains the latest verified project version.
