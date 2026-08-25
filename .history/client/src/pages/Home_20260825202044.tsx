@@ -43,7 +43,7 @@ export const STORE_CONFIG = {
   bkashNumber: "01XXXXXXXXX",
   contactNumber: "+880 1603453483",
   whatsAppNumber: "8801603453483",
-  email: "admin.curiobd@gmail.com",
+  email: "hello@lumenbooks.co",
   socialLinks: {
     instagram: "https://instagram.com",
     facebook: "https://facebook.com",
