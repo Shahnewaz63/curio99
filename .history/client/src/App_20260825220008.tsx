@@ -5,7 +5,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import TrackOrder from "./pages/Track";
+import TrackOrder from "./pages/TrackOrder";
 const Home = lazy(() => import("./pages/Home"));
 const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
@@ -25,7 +25,6 @@ function Router() {
       <Route path="/track-order" component={TrackOrder} />
       <Route path="/admin/orders" component={AdminOrders} />
       <Route path="/404" component={NotFound} />
-      <Route path="/track" component={TrackOrder} />
       <Route component={NotFound} />
     </Switch>
     </Suspense>

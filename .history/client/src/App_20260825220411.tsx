@@ -25,7 +25,6 @@ function Router() {
       <Route path="/track-order" component={TrackOrder} />
       <Route path="/admin/orders" component={AdminOrders} />
       <Route path="/404" component={NotFound} />
-      <Route path="/track" component={TrackOrder} />
       <Route component={NotFound} />
     </Switch>
     </Suspense>
