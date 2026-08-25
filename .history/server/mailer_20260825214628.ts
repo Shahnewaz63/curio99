@@ -54,7 +54,7 @@ const trackingUrl = `https://curio.bd/api/trpc/orders.track?batch=1&input=${enco
       <div style="background-color: #f8fafc; padding: 16px; border-radius: 6px; margin: 20px 0;">
         <p style="margin: 4px 0;"><strong>Order ID:</strong> #${orderId}</p>
         <p style="margin: 4px 0;"><strong>Tracking ID:</strong> <span style="color: #2563eb; font-weight: bold;">${trackingId}</span></p>
-        <p style="margin: 4px 0;"><strong>Track Status:</strong> <a href="${trackingUrl}" style="color: #2563eb;">Track Your Order Now.</a></p>
+        <p style="margin: 4px 0;"><strong>Track Status:</strong> <a href="${trackingUrl}" style="color: #2563eb;">${trackingUrl}</a></p>
       </div>
 
       <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">Customer & Delivery Details</h3>
