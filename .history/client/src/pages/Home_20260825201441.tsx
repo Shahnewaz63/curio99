@@ -38,8 +38,8 @@ export const STORE_CONFIG = {
   bookDescription:
     "Practical skills for technology, study, fitness, finance, and the connections that make everyday life work better.",
   bookPrice: 249,
-  insideDhakaCharge: 80,
-  outsideDhakaCharge: 130,
+  insideDhakaCharge: 60,
+  outsideDhakaCharge: 120,
   bkashNumber: "01XXXXXXXXX",
   contactNumber: "+880 1603453483",
   whatsAppNumber: "8801603453483",
