@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { COOKIE_NAME } from "@shared/const";
+import { COOKIE_NAME } from "../shared/const.js";
 import { orderStatuses } from "../drizzle/schema";
 import { createOrder, deleteOrderById, getOrderById, isLocalOrderStoreEnabled, listOrders, updateOrderStatus, updateOrdersStatus, updateSheetSyncState } from "./db";
 import { getSessionCookieOptions } from "./_core/cookies";
