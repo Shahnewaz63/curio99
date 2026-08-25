@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
  */
 export async function sendOrderPlacedEmail(data: OrderNotificationData) {
   const { orderId, trackingId, customerName, customerEmail, phone, shippingAddress, items, totalAmount } = data;
-    const trackingUrl = `https://curio.bd/track?orderId=${orderId}&phone=${encodeURIComponent(phone)}`;
+  const trackingUrl = `https://curio.bd/track/${trackingId}`;
 
   const itemsListHtml = items && items.length > 0
     ? items.map(item => `
@@ -73,7 +73,7 @@ export async function sendOrderPlacedEmail(data: OrderNotificationData) {
 
       <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 24px 0;" />
       <p style="font-size: 12px; color: #666; text-align: center;">
-        If you have any questions, contact us at <a href="mailto:admin.curiobd@gmail.com">admin.curiobd@gmail.com</a>.
+        If you have any questions, contact us at <a href="mailto:support@curio.bd">support@curio.bd</a>.
       </p>
     </div>
   `;
@@ -108,7 +108,7 @@ export async function sendOrderDeliveredEmail(data: OrderNotificationData) {
 
       <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 24px 0;" />
       <p style="font-size: 12px; color: #666; text-align: center;">
-        Need help? Contact <a href="mailto:admin.curiobd@gmail.com">admin.curiobd@gmail.com</a>
+        Need help? Contact <a href="mailto:support@curio.bd">support@curio.bd</a>
       </p>
     </div>
   `;

@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
  */
 export async function sendOrderPlacedEmail(data: OrderNotificationData) {
   const { orderId, trackingId, customerName, customerEmail, phone, shippingAddress, items, totalAmount } = data;
-    const trackingUrl = `https://curio.bd/track?orderId=${orderId}&phone=${encodeURIComponent(phone)}`;
+  const trackingUrl = `https://curio.bd/track/${trackingId}`;
 
   const itemsListHtml = items && items.length > 0
     ? items.map(item => `
