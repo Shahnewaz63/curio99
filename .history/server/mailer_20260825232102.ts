@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+// Define the shape of customer and order data
 export interface OrderNotificationData {
   orderId: string;
   trackingId: string;
@@ -24,7 +25,8 @@ const transporter = nodemailer.createTransport({
  */
 export async function sendOrderPlacedEmail(data: OrderNotificationData) {
   const { orderId, trackingId, customerName, customerEmail, phone, shippingAddress, items, totalAmount } = data;
-  const trackingUrl = `https://curio.bd/track?orderId=${orderId}&phone=${encodeURIComponent(phone || "")}`;
+
+const trackingUrl = `https://curio.bd/track?orderId=${orderId}&phone=${encodeURIComponent(phone)}`;
 
   const itemsListHtml = items && items.length > 0
     ? items.map(item => `
@@ -78,10 +80,10 @@ export async function sendOrderPlacedEmail(data: OrderNotificationData) {
   `;
 
   return transporter.sendMail({
-    from: `"Curio" <${process.env.GMAIL_USER}>`,
+    from: `"Curio" <admin.curiobd@gmail.com>`,
     to: customerEmail,
     subject: `Order Confirmation #${orderId} - Tracking ID: ${trackingId}`,
-    text: `Hello ${customerName}, your order #${orderId} is confirmed. Track it here: ${trackingUrl}`,
+    text: `Hello ${customerName}, your order #${orderId} is confirmed. Track it here: https://curio.bd/track?orderId=${orderId}&phone=${phone}`,
     html: htmlContent,
   });
 }
@@ -90,8 +92,7 @@ export async function sendOrderPlacedEmail(data: OrderNotificationData) {
  * 2. Email sent when order status changes to "Delivered"
  */
 export async function sendOrderDeliveredEmail(data: OrderNotificationData) {
-  const { orderId, trackingId, customerName, customerEmail, phone, shippingAddress } = data;
-  const trackingUrl = `https://curio.bd/track?orderId=${orderId}&phone=${encodeURIComponent(phone || "")}`;
+  const { orderId, trackingId, customerName, customerEmail, shippingAddress } = data;
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
@@ -115,10 +116,9 @@ export async function sendOrderDeliveredEmail(data: OrderNotificationData) {
   `;
 
   return transporter.sendMail({
-    from: `"Curio" <${process.env.GMAIL_USER}>`,
+    from: `"Curio" <admin.curiobd@gmail.com>`,
     to: customerEmail,
     subject: `Delivered: Order #${orderId} (Tracking ID: ${trackingId})`,
-    text: `Hello ${customerName}, your order #${orderId} has been delivered. Track your order status here: ${trackingUrl}`,
     html: htmlContent,
   });
 }
