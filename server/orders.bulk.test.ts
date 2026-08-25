@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { TrpcContext } from "./_core/context";
-import { appRouter } from "./routers";
+import type { TrpcContext } from "./_core/context.js";
+import { appRouter } from "./routers.js";
 
 const localDataDirectory = path.join(process.cwd(), ".curio-local-data");
 const priorSheetsDisabled = process.env.CURIO_DISABLE_SHEETS_SYNC;

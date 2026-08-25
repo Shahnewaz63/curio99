@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { createOrder, deleteOrderById, getOrderById, listOrders, updateOrderStatus } from "./db";
+import { createOrder, deleteOrderById, getOrderById, listOrders, updateOrderStatus } from "./db.js";
 
 const orderId = `CURIO-PG-${Date.now().toString(36).toUpperCase()}`;
 const previousUsePostgres = process.env.CURIO_USE_POSTGRES;

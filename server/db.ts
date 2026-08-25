@@ -1,9 +1,9 @@
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { InsertOrder, InsertUser, OrderStatus, SheetSyncState, orders, users } from "../drizzle/schema";
-import { ENV } from "./_core/env";
-import { createLocalOrderStore } from "./localOrderStore";
+import { InsertOrder, InsertUser, OrderStatus, SheetSyncState, orders, users } from "../drizzle/schema.js";
+import { ENV } from "./_core/env.js";
+import { createLocalOrderStore } from "./localOrderStore.js";
 
 type PostgresDb = ReturnType<typeof drizzle>;
 const DATABASE_TIME_ZONE = "Asia/Dhaka";

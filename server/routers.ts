@@ -2,15 +2,15 @@ import { nanoid } from "nanoid";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { COOKIE_NAME } from "../shared/const.js";
-import { orderStatuses } from "../drizzle/schema";
-import { createOrder, deleteOrderById, getOrderById, isLocalOrderStoreEnabled, listOrders, updateOrderStatus, updateOrdersStatus, updateSheetSyncState } from "./db";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { CREDENTIAL_ADMIN_OPEN_ID, CREDENTIAL_ADMIN_SESSION_MS, isCredentialAdminConfigured, verifyCredentialAdminLogin } from "./adminCredentials";
-import { sdk } from "./_core/sdk";
-import { adminProcedure, publicProcedure, router } from "./_core/trpc";
-import { deleteOrderFromGoogleSheet, getGoogleSheetsSyncStatus, hasGoogleSheetsConfigurationAttempt, isGoogleSheetsSyncEnabled, syncOrderToGoogleSheet, verifyGoogleSheetsConnection } from "./googleSheets";
-import { calculateOrderTotals, statusLabel } from "./orderConstants";
-import { systemRouter } from "./_core/systemRouter";
+import { orderStatuses } from "../drizzle/schema.js";
+import { createOrder, deleteOrderById, getOrderById, isLocalOrderStoreEnabled, listOrders, updateOrderStatus, updateOrdersStatus, updateSheetSyncState } from "./db.js";
+import { getSessionCookieOptions } from "./_core/cookies.js";
+import { CREDENTIAL_ADMIN_OPEN_ID, CREDENTIAL_ADMIN_SESSION_MS, isCredentialAdminConfigured, verifyCredentialAdminLogin } from "./adminCredentials.js";
+import { sdk } from "./_core/sdk.js";
+import { adminProcedure, publicProcedure, router } from "./_core/trpc.js";
+import { deleteOrderFromGoogleSheet, getGoogleSheetsSyncStatus, hasGoogleSheetsConfigurationAttempt, isGoogleSheetsSyncEnabled, syncOrderToGoogleSheet, verifyGoogleSheetsConnection } from "./googleSheets.js";
+import { calculateOrderTotals, statusLabel } from "./orderConstants.js";
+import { systemRouter } from "./_core/systemRouter.js";
 
 export const orderInput = z.object({
   fullName: z.string().trim().min(2).max(160),
