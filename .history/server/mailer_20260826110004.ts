@@ -33,7 +33,7 @@ transporter.verify((error) => {
 // Helper configuration helpers
 const getBaseUrl = () => process.env.APP_URL || "https://curio.bd";
 const getSender = () => `"Curio" <${process.env.SENDER_EMAIL || process.env.BREVO_SMTP_USER}>`;
-const getSupportEmail = () => "info.curiobd@gmail.com";
+const getSupportEmail = () => process.env.SUPPORT_EMAIL || process.env.SENDER_EMAIL || "info.curiobd@gmail.com";
 
 /**
  * 1. Email sent when an order is successfully placed
