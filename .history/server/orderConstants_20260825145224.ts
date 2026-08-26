@@ -1,5 +1,5 @@
 export const BOOK_PRICE = 249;
-export const INSIDE_DHAKA_CHARGE = 70;
+export const INSIDE_DHAKA_CHARGE = 60;
 export const OUTSIDE_DHAKA_CHARGE = 120;
 
 export function calculateOrderTotals(location: "dhaka" | "outside", quantity: number) {

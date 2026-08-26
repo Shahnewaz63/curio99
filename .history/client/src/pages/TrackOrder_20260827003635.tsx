@@ -72,9 +72,7 @@ export default function TrackOrder() {
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[.14em] text-[#71869C]">Your order</p>
                   <h2 className="mt-2 font-display text-2xl font-extrabold">#{order.orderId}</h2>
-                  <p className="mt-2 text-sm text-[#A7B5C5]">
-                    Placed {formatBangladeshDateTime(order.createdAt)} · Last updated {formatBangladeshDateTime(order.updatedAt)}
-                  </p>
+                  <p className="mt-2 text-sm text-[#A7B5C5]">Placed {formatBangladeshDateTime(order.createdAt)} BDT · Last updated {formatBangladeshDateTime(order.updatedAt)} BDT</p>
                 </div>
                 <div className={`inline-flex items-center gap-2 border px-3 py-2 text-xs font-semibold ${order.status === "cancelled" ? "border-[#F28773]/40 bg-[#F28773]/[.1] text-[#F6B1A4]" : "border-[#55E6E0]/35 bg-[#55E6E0]/[.08] text-[#B8FFFA]"}`}>
                   <span className={`h-1.5 w-1.5 rounded-full ${order.status === "cancelled" ? "bg-[#F28773]" : "bg-[#55E6E0]"}`} />
@@ -82,28 +80,14 @@ export default function TrackOrder() {
                 </div>
               </div>
 
-              {/* Order Information Grid (Now includes Total Amount & Quantity) */}
-              <div className="mt-8 grid gap-4 border-y border-white/[.08] py-6 sm:grid-cols-4">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Total Amount</p>
-                  <p className="mt-2 text-base font-bold text-[#55E6E0]">
-                    ৳{order.total}{" "}
-                    <span className="text-xs font-normal text-[#A7B5C5]">
-                      ({order.quantity} {order.quantity > 1 ? "copies" : "copy"})
-                    </span>
-                  </p>
-                </div>
+              <div className="mt-8 grid gap-4 border-y border-white/[.08] py-6 sm:grid-cols-3">
                 <div>
                   <p className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Confirmation</p>
-                  <p className="mt-2 text-sm font-semibold text-[#F4F0E8]">
-                    {order.status === "cancelled" ? "Not proceeding" : order.status === "confirmation_pending" ? "Call pending" : "Confirmed"}
-                  </p>
+                  <p className="mt-2 text-sm font-semibold text-[#F4F0E8]">{order.status === "cancelled" ? "Not proceeding" : order.status === "confirmation_pending" ? "Call pending" : "Confirmed"}</p>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Delivery</p>
-                  <p className="mt-2 text-sm font-semibold text-[#F4F0E8]">
-                    {order.deliveryLocation === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}
-                  </p>
+                  <p className="mt-2 text-sm font-semibold text-[#F4F0E8]">{order.deliveryLocation === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}</p>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Payment</p>
@@ -119,7 +103,7 @@ export default function TrackOrder() {
               ) : (
                 <div className="mt-7 flex items-start gap-4 text-sm leading-6 text-[#A7B5C5]">
                   <PackageCheck className="mt-0.5 h-5 shrink-0 text-[#55E6E0]" />
-                  <p>We will call <span className="font-semibold text-[#F4F0E8]">{order.phone}</span> to confirm your order of <span className="font-semibold text-[#F4F0E8]">৳{order.total}</span>. Once confirmed, this page will update with the latest status.</p>
+                  <p>We will call <span className="font-semibold text-[#F4F0E8]">{order.phone}</span> to confirm your order. Once confirmed, this page will update with the latest status.</p>
                 </div>
               )}
 
