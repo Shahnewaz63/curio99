@@ -115,87 +115,12 @@ export default function AdminOrders() {
   const allSelected = visibleOrders.length > 0 && selectedIds.length === visibleOrders.length;
   const isWorking = updateStatus.isPending || bulkUpdateStatus.isPending || deleteOrder.isPending || bulkDelete.isPending;
 
-  return (
-    <DashboardLayout>
-      <div className="min-h-[calc(100vh-2rem)] bg-[#07111F] p-5 text-[#F4F0E8] sm:p-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col justify-between gap-5 border-b border-white/[.08] pb-7 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#55E6E0]">Private order desk</p>
-              <h1 className="mt-3 font-display text-4xl font-extrabold tracking-[-.06em]">Orders</h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[#A7B5C5]">Select multiple orders to update fulfillment status or remove records together.</p>
-            </div>
-            <div className="flex items-center gap-3 border border-[#55E6E0]/25 bg-[#55E6E0]/[.06] px-4 py-3 text-xs text-[#B8FFFA]">
-              <ShieldCheck className="h-4 w-4" /> Owner access verified
-            </div>
-          </div>
+  return <DashboardLayout><div className="min-h-[calc(100vh-2rem)] bg-[#07111F] p-5 text-[#F4F0E8] sm:p-8"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-5 border-b border-white/[.08] pb-7 sm:flex-row sm:items-end"><div><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#55E6E0]">Private order desk</p><h1 className="mt-3 font-display text-4xl font-extrabold tracking-[-.06em]">Orders</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#A7B5C5]">Select multiple orders to update fulfillment status or remove records together.</p></div><div className="flex items-center gap-3 border border-[#55E6E0]/25 bg-[#55E6E0]/[.06] px-4 py-3 text-xs text-[#B8FFFA]"><ShieldCheck className="h-4 w-4" /> Owner access verified</div></div>
 
-          {selectedIds.length > 0 && (
-            <section className="mt-6 flex flex-col gap-3 border border-[#55E6E0]/30 bg-[#55E6E0]/[.06] p-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm font-semibold text-[#B8FFFA]">{selectedIds.length} order{selectedIds.length === 1 ? "" : "s"} selected</p>
-              <div className="flex flex-wrap gap-2">
-                <select aria-label="Bulk order status" value={bulkStatus} disabled={isWorking} onChange={event => setBulkStatus(event.target.value as StatusValue)} className="border border-[#55E6E0]/30 bg-[#07111F] px-3 py-2 text-xs font-semibold text-[#F4F0E8] focus:outline-none focus:ring-1 focus:ring-[#55E6E0]">{statusOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>
-                <button type="button" disabled={isWorking} onClick={() => bulkUpdateStatus.mutate({ orderIds: selectedIds, status: bulkStatus })} className="border border-[#56D695]/55 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#B7F5CB] transition hover:bg-[#56D695]/10 disabled:opacity-50">Set status</button>
-                <button type="button" disabled={isWorking} onClick={confirmBulkDeletion} className="border border-[#F28773]/55 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#F6B1A4] transition hover:bg-[#F28773]/10 disabled:opacity-50">Delete selected</button>
-              </div>
-            </section>
-          )}
+    {selectedIds.length > 0 && <section className="mt-6 flex flex-col gap-3 border border-[#55E6E0]/30 bg-[#55E6E0]/[.06] p-4 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm font-semibold text-[#B8FFFA]">{selectedIds.length} order{selectedIds.length === 1 ? "" : "s"} selected</p><div className="flex flex-wrap gap-2"><select aria-label="Bulk order status" value={bulkStatus} disabled={isWorking} onChange={event => setBulkStatus(event.target.value as StatusValue)} className="border border-[#55E6E0]/30 bg-[#07111F] px-3 py-2 text-xs font-semibold text-[#F4F0E8] focus:outline-none focus:ring-1 focus:ring-[#55E6E0]">{statusOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><button type="button" disabled={isWorking} onClick={() => bulkUpdateStatus.mutate({ orderIds: selectedIds, status: bulkStatus })} className="border border-[#56D695]/55 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#B7F5CB] transition hover:bg-[#56D695]/10 disabled:opacity-50">Set status</button><button type="button" disabled={isWorking} onClick={confirmBulkDeletion} className="border border-[#F28773]/55 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#F6B1A4] transition hover:bg-[#F28773]/10 disabled:opacity-50">Delete selected</button></div></section>}
 
-          {orders.isLoading && <p className="py-12 text-sm text-[#A7B5C5]">Loading orders…</p>}
-          {orders.error && <div className="mt-8 border border-[#F28773]/30 bg-[#F28773]/[.08] p-5 text-[#F6B1A4]">Orders could not be loaded. Only the configured owner account can access this page.</div>}
-          {orders.data && (
-            <div className="mt-8 overflow-hidden border border-white/[.1] bg-[#0D1B2D]">
-              <div className="overflow-x-auto">
-                <table className="min-w-[1160px] w-full text-left text-sm">
-                  <thead className="border-b border-white/[.08] bg-white/[.025] text-[10px] uppercase tracking-[.13em] text-[#71869C]">
-                    <tr>
-                      <th className="w-12 px-4 py-4"><input aria-label="Select all displayed orders" type="checkbox" checked={allSelected} onChange={toggleAll} className="h-4 w-4 accent-[#55E6E0]" /></th>
-                      <th className="px-5 py-4">Order</th>
-                      <th className="px-5 py-4">Customer</th>
-                      <th className="px-5 py-4">Delivery</th>
-                      <th className="px-5 py-4">Total</th>
-                      <th className="px-5 py-4">Status</th>
-                      <th className="px-5 py-4">Sheet</th>
-                      <th className="px-5 py-4">Placed (BDT)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {visibleOrders.map(order => (
-                      <tr key={order.orderId} className={selectedIds.includes(order.orderId) ? "border-b border-[#55E6E0]/20 bg-[#55E6E0]/[.035] align-top last:border-b-0" : "border-b border-white/[.06] align-top last:border-b-0"}>
-                        <td className="px-4 py-5"><input aria-label={`Select ${order.orderId}`} type="checkbox" checked={selectedIds.includes(order.orderId)} onChange={() => toggleOrder(order.orderId)} className="h-4 w-4 accent-[#55E6E0]" /></td>
-                        <td className="px-5 py-5">
-                          <p className="font-display font-extrabold text-[#F4F0E8]">#{order.orderId}</p>
-                          <p className="mt-1 text-xs text-[#71869C]">{order.paymentMethod.toUpperCase()} · {order.paymentStatus}</p>
-                          <button type="button" disabled={isWorking} onClick={() => confirmDeletion(order.orderId)} className="mt-3 inline-flex items-center gap-2 border border-[#F28773]/45 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#F6B1A4] transition hover:bg-[#F28773]/10 disabled:cursor-wait disabled:opacity-60"><Trash2 className="h-3.5 w-3.5" /> Delete</button>
-                        </td>
-                        
-                        {/* Updated Customer Column */}
-                        <td className="px-5 py-5">
-                          <p className="font-semibold text-[#F4F0E8]">{order.fullName}</p>
-                          {(order.email || (order as any).customerEmail) && (
-                            <p className="mt-1 text-xs text-[#55E6E0]">
-                              {order.email || (order as any).customerEmail}
-                            </p>
-                          )}
-                          <p className="mt-1 text-xs text-[#A7B5C5]">{order.phone}</p>
-                          <p className="mt-1 max-w-[220px] text-xs leading-5 text-[#71869C]">{order.address}</p>
-                        </td>
-
-                        <td className="px-5 py-5 text-xs leading-5 text-[#A7B5C5]">{order.deliveryLocation === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}<br />{order.quantity} copy{order.quantity > 1 ? "ies" : ""}</td>
-                        <td className="px-5 py-5 font-display font-extrabold text-[#55E6E0]">৳{order.total.toLocaleString("en-BD")}</td>
-                        <td className="px-5 py-5"><span className={`inline-flex border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[.1em] ${statusClasses(order.status as StatusValue)}`}>{statusLabel(order.status)}</span><select aria-label={`Status for ${order.orderId}`} value={order.status} disabled={isWorking} onChange={event => updateStatus.mutate({ orderId: order.orderId, status: event.target.value as StatusValue })} className="mt-3 block border border-[#55E6E0]/25 bg-[#07111F] px-3 py-2 text-xs font-semibold text-[#F4F0E8] focus:outline-none focus:ring-1 focus:ring-[#55E6E0]">{statusOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></td>
-                        <td className="px-5 py-5"><div className="flex items-center gap-2 text-xs"><span className={order.sheetSyncState === "synced" ? "text-[#B8FFFA]" : order.sheetSyncState === "failed" ? "text-[#F6B1A4]" : "text-[#FFCF27]"}>{order.sheetSyncState === "synced" ? <CheckCircle2 className="h-4 w-4" /> : <Database className="h-4 w-4" />}</span><span className="capitalize text-[#A7B5C5]">{order.sheetSyncState}</span></div>{order.sheetSyncState === "failed" && <button type="button" onClick={() => retrySheet.mutate({ orderId: order.orderId })} className="mt-3 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#55E6E0]"><RefreshCw className="h-3 w-3" /> Retry</button>}</td>
-                        <td className="px-5 py-5 text-xs text-[#71869C]">{formatBangladeshDateTime(order.createdAt)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {visibleOrders.length === 0 && <div className="p-12 text-center text-sm text-[#71869C]">No orders have been placed yet.</div>}
-            </div>
-          )}
-        </div>
-      </div>
-    </DashboardLayout>
-  );
+    {orders.isLoading && <p className="py-12 text-sm text-[#A7B5C5]">Loading orders…</p>}
+    {orders.error && <div className="mt-8 border border-[#F28773]/30 bg-[#F28773]/[.08] p-5 text-[#F6B1A4]">Orders could not be loaded. Only the configured owner account can access this page.</div>}
+    {orders.data && <div className="mt-8 overflow-hidden border border-white/[.1] bg-[#0D1B2D]"><div className="overflow-x-auto"><table className="min-w-[1160px] w-full text-left text-sm"><thead className="border-b border-white/[.08] bg-white/[.025] text-[10px] uppercase tracking-[.13em] text-[#71869C]"><tr><th className="w-12 px-4 py-4"><input aria-label="Select all displayed orders" type="checkbox" checked={allSelected} onChange={toggleAll} className="h-4 w-4 accent-[#55E6E0]" /></th><th className="px-5 py-4">Order</th><th className="px-5 py-4">Customer</th><th className="px-5 py-4">Delivery</th><th className="px-5 py-4">Total</th><th className="px-5 py-4">Status</th><th className="px-5 py-4">Sheet</th><th className="px-5 py-4">Placed (BDT)</th></tr></thead><tbody>{visibleOrders.map(order => <tr key={order.orderId} className={selectedIds.includes(order.orderId) ? "border-b border-[#55E6E0]/20 bg-[#55E6E0]/[.035] align-top last:border-b-0" : "border-b border-white/[.06] align-top last:border-b-0"}><td className="px-4 py-5"><input aria-label={`Select ${order.orderId}`} type="checkbox" checked={selectedIds.includes(order.orderId)} onChange={() => toggleOrder(order.orderId)} className="h-4 w-4 accent-[#55E6E0]" /></td><td className="px-5 py-5"><p className="font-display font-extrabold text-[#F4F0E8]">#{order.orderId}</p><p className="mt-1 text-xs text-[#71869C]">{order.paymentMethod.toUpperCase()} · {order.paymentStatus}</p><button type="button" disabled={isWorking} onClick={() => confirmDeletion(order.orderId)} className="mt-3 inline-flex items-center gap-2 border border-[#F28773]/45 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#F6B1A4] transition hover:bg-[#F28773]/10 disabled:cursor-wait disabled:opacity-60"><Trash2 className="h-3.5 w-3.5" /> Delete</button></td><td className="px-5 py-5"><p className="font-semibold text-[#F4F0E8]">{order.fullName}</p><p className="mt-1 text-xs text-[#A7B5C5]">{order.phone}</p><p className="mt-1 max-w-[220px] text-xs leading-5 text-[#71869C]">{order.address}</p></td><td className="px-5 py-5 text-xs leading-5 text-[#A7B5C5]">{order.deliveryLocation === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}<br />{order.quantity} copy{order.quantity > 1 ? "ies" : ""}</td><td className="px-5 py-5 font-display font-extrabold text-[#55E6E0]">৳{order.total.toLocaleString("en-BD")}</td><td className="px-5 py-5"><span className={`inline-flex border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[.1em] ${statusClasses(order.status as StatusValue)}`}>{statusLabel(order.status)}</span><select aria-label={`Status for ${order.orderId}`} value={order.status} disabled={isWorking} onChange={event => updateStatus.mutate({ orderId: order.orderId, status: event.target.value as StatusValue })} className="mt-3 block border border-[#55E6E0]/25 bg-[#07111F] px-3 py-2 text-xs font-semibold text-[#F4F0E8] focus:outline-none focus:ring-1 focus:ring-[#55E6E0]">{statusOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></td><td className="px-5 py-5"><div className="flex items-center gap-2 text-xs"><span className={order.sheetSyncState === "synced" ? "text-[#B8FFFA]" : order.sheetSyncState === "failed" ? "text-[#F6B1A4]" : "text-[#FFCF27]"}>{order.sheetSyncState === "synced" ? <CheckCircle2 className="h-4 w-4" /> : <Database className="h-4 w-4" />}</span><span className="capitalize text-[#A7B5C5]">{order.sheetSyncState}</span></div>{order.sheetSyncState === "failed" && <button type="button" onClick={() => retrySheet.mutate({ orderId: order.orderId })} className="mt-3 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#55E6E0]"><RefreshCw className="h-3 w-3" /> Retry</button>}</td><td className="px-5 py-5 text-xs text-[#71869C]">{formatBangladeshDateTime(order.createdAt)}</td></tr>)}</tbody></table></div>{visibleOrders.length === 0 && <div className="p-12 text-center text-sm text-[#71869C]">No orders have been placed yet.</div>}</div>}
+  </div></div></DashboardLayout>;
 }
