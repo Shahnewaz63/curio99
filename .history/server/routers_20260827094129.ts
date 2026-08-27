@@ -13,26 +13,23 @@ import { calculateOrderTotals, statusLabel } from "./orderConstants.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { sendOrderPlacedEmail, sendOrderDeliveredEmail } from "./mailer.js";
 
-// Ultra-permissive input schema to prevent HTTP 400 validation failures during launch
 export const orderInput = z.object({
-  fullName: z.string().trim().min(1, "Name is required").max(160),
+  fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(160),
   phone: z
     .string()
     .trim()
-    .transform((val) => val.replace(/[^\d]/g, "")) // Strips spaces, dashes, and non-digits
-    .pipe(z.string().min(10, "Invalid phone number").max(15)),
+    .transform((val) => val.replace(/[\s-]/g, ""))
+    .pipe(z.string().regex(/^(?:\+?8801|8801|01|1)[3-9]\d{8}$/, "Invalid Bangladesh phone number")),
   email: z
     .string()
     .trim()
-    .optional()
+    .email("Invalid email format")
     .or(z.literal(""))
-    .transform((val) => {
-      if (!val || !val.includes("@")) return "customer@curio.bd";
-      return val;
-    }),
-  address: z.string().trim().min(2, "Address is required"),
+    .optional()
+    .transform((val) => val || "customer@curio.bd"),
+  address: z.string().trim().min(5, "Address must be at least 5 characters"),
   location: z.enum(["dhaka", "outside"]),
-  quantity: z.coerce.number().int().min(1).max(50).default(1),
+  quantity: z.coerce.number().int().min(1).max(20),
   note: z.string().trim().max(1000).optional().or(z.literal("")),
   payment: z.enum(["cod", "bkash"]),
   bkashNumber: z.string().trim().max(32).optional().or(z.literal("")),
@@ -180,12 +177,12 @@ export const appRouter = router({
         status: "confirmation_pending",
       });
 
-      // Background non-blocking Google Sheets synchronization
+      // Execute Google Sheets sync in background (non-blocking)
       mirrorOrder(order.orderId).catch((err) => {
         console.error(`[Background Sheets Sync Error] ${order.orderId}:`, err);
       });
 
-      // Background non-blocking email delivery
+      // Execute email delivery in background (non-blocking)
       sendOrderPlacedEmail({
         orderId: order.orderId,
         trackingId: order.orderId,
