@@ -41,7 +41,7 @@ export const STORE_CONFIG = {
   email: "info.curiobd@gmail.com",
   socialLinks: {
     instagram: "https://www.instagram.com/curiobd_official/",
-    facebook: "https://www.facebook.com/profile.php?id=61593414137387",
+    facebook: "https://facebook.com",
   },
   logoSrc: "/images/logo.png",
   coverSrc: "/images/coverpage.png",
