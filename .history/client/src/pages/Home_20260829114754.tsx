@@ -685,7 +685,7 @@ export default function Home() {
         <Hero />
         <section id="order" className="scroll-mt-24 py-24 sm:py-32">
           <div className="container">
-            <SectionIntro label="Reserve your copy" title="A simple order, thoughtfully handled." copy={`The first edition is ${money(STORE_CONFIG.bookPrice)}. Estimated arrival in 4–7 days across Bangladesh.`} />
+            <SectionIntro label="Reserve your copy" title="A simple order, thoughtfully handled." copy={`The first edition is ${money(STORE_CONFIG.bookPrice)}. Estimated arrival in 4–8 days across Bangladesh.`} />
             <div className="mt-14 grid items-start gap-6 lg:grid-cols-[1.18fr_.82fr] lg:gap-8">
               {lastOrder ? <Confirmation order={lastOrder} /> : <OrderForm onOrder={setLastOrder} onDraftChange={setDraftForm} />}
               <OrderSummary order={lastOrder} draft={draftForm} />
