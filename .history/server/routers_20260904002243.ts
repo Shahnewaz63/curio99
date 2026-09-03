@@ -27,7 +27,7 @@ export const orderInput = z.object({
     .optional()
     .or(z.literal(""))
     .transform((val) => {
-      if (!val || !val.includes("@")) return null; // 👈 Transforms invalid or empty email to null
+      if (!val || !val.includes("@")) return "customer@curio.bd";
       return val;
     }),
   address: z.string().trim().min(2, "Address is required"),
@@ -165,7 +165,7 @@ export const appRouter = router({
         orderId: `CURIO-${nanoid(8).toUpperCase()}`,
         fullName: input.fullName,
         phone: normalizeBangladeshPhone(input.phone),
-        email: input.email || null, // 👈 Saves null/empty to the database if not provided
+        email: input.email || "customer@curio.bd",
         address: input.address,
         deliveryLocation: input.location,
         quantity: input.quantity,
@@ -185,20 +185,18 @@ export const appRouter = router({
         console.error(`[Background Sheets Sync Error] ${order.orderId}:`, err);
       });
 
-      // Background non-blocking email delivery (only sends if email is present)
-      if (order.email) {
-        sendOrderPlacedEmail({
-          orderId: order.orderId,
-          trackingId: order.orderId,
-          customerName: order.fullName,
-          customerEmail: order.email,
-          phone: order.phone,
-          shippingAddress: order.address,
-          totalAmount: order.total,
-        }).catch((err) => {
-          console.error(`[Background Mailer Error] ${order.orderId}:`, err);
-        });
-      }
+      // Background non-blocking email delivery
+      sendOrderPlacedEmail({
+        orderId: order.orderId,
+        trackingId: order.orderId,
+        customerName: order.fullName,
+        customerEmail: order.email,
+        phone: order.phone,
+        shippingAddress: order.address,
+        totalAmount: order.total,
+      }).catch((err) => {
+        console.error(`[Background Mailer Error] ${order.orderId}:`, err);
+      });
 
       const fetchedOrder = await getOrderById(order.orderId);
       return fetchedOrder ?? order;
@@ -231,7 +229,7 @@ export const appRouter = router({
       
       mirrorOrder(updated.orderId).catch((err) => console.error(`[Sheets Error] ${updated.orderId}:`, err));
 
-      if (input.status === "delivered" && previousOrder?.status !== "delivered" && updated.email) {
+      if (input.status === "delivered" && previousOrder?.status !== "delivered") {
         sendOrderDeliveredEmail({
           orderId: updated.orderId,
           trackingId: updated.orderId,
@@ -255,7 +253,7 @@ export const appRouter = router({
         mirrorOrder(order.orderId).catch((err) => console.error(`[Sheets Error] ${order.orderId}:`, err));
 
         const previousOrder = existing.find(e => e?.orderId === order.orderId);
-        if (input.status === "delivered" && previousOrder?.status !== "delivered" && order.email) {
+        if (input.status === "delivered" && previousOrder?.status !== "delivered") {
           sendOrderDeliveredEmail({
             orderId: order.orderId,
             trackingId: order.orderId,
