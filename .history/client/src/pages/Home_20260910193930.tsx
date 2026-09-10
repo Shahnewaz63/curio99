@@ -318,7 +318,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
         transactionId: form.payment === "bkash" ? (form.transactionId.trim() || undefined) : undefined,
       });
 
-      // Pass exact order ID string for deduplication
+      // FIX: Added eventID parameter to enable Meta Pixel & Conversions API deduplication
       if (typeof window !== "undefined" && (window as any).fbq) {
         (window as any).fbq(
           "track",
@@ -331,7 +331,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
             content_type: "product",
           },
           {
-            eventID: String(created.orderId),
+            eventID: String(created.orderId), // Must match server CAPI event_id
           }
         );
       }
@@ -687,6 +687,7 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => { if (lastOrder) window.location.assign("/order-success"); }, [lastOrder]);
   const orderTotalLabel = useMemo(() => lastOrder ? money(lastOrder.total) : money(STORE_CONFIG.bookPrice + STORE_CONFIG.insideDhakaCharge), [lastOrder]);
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#07111F] text-[#F4F0E8]">
