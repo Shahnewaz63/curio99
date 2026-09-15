@@ -218,7 +218,7 @@ function Hero() {
         <div className="inline-flex items-center gap-3 rounded-full border border-[#FFCF27]/70 bg-[#FFCF27]/12 px-4 py-2 font-display text-[11px] font-extrabold tracking-[.12em] shadow-[0_8px_22px_rgba(255,207,39,.12)]">
           <span className="text-[#A7B5C5] line-through decoration-[#FFCF27]/70 decoration-1">৳299</span>
           <span className="h-3 w-px bg-[#FFCF27]/45" />
-          <span className="text-[#FFCF27]">৳185</span>
+          <span className="text-[#FFCF27]">৳249</span>
         </div>
       </div>
       <div className="container relative flex min-h-[calc(100vh-72px)] flex-col items-center justify-center py-16 sm:py-20">
