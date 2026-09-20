@@ -32,7 +32,7 @@ export const STORE_CONFIG = {
   bookKicker: "Practical skills for everyday life",
   bookDescription:
     "Practical skills for technology, study, fitness, finance, and the connections that make everyday life work better.",
-  bookPrice: 249,
+  bookPrice: 185,
   insideDhakaCharge: 60,
   outsideDhakaCharge: 100,
   bkashNumber: "01908579453",
