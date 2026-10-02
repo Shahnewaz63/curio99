@@ -32,9 +32,9 @@ export const STORE_CONFIG = {
   bookKicker: "Practical skills for everyday life",
   bookDescription:
     "Practical skills for technology, study, fitness, finance, and the connections that make everyday life work better.",
-  bookPrice: 249,
-  insideDhakaCharge: 70,
-  outsideDhakaCharge: 120,
+  bookPrice: 199,
+  insideDhakaCharge: 60,
+  outsideDhakaCharge: 100,
   bkashNumber: "01908579453",
   contactNumber: "+880 1603453483",
   whatsAppNumber: "8801603453483",
@@ -63,42 +63,15 @@ export const STORE_CONFIG = {
     },
   ],
   previewPages: [
-    {
-      src: "/images/page-1.jpg",
-      alt: "99 Life Hacks book cover",
-    },
-    {
-      src: "/images/page-2.jpg",
-      alt: "99 Life Hacks preview page 2",
-    },
-    {
-      src: "/images/page-3.jpg",
-      alt: "99 Life Hacks preview page 3",
-    },
-    {
-      src: "/images/page-4.jpg",
-      alt: "99 Life Hacks preview page 4",
-    },
-    {
-      src: "/images/page-5.jpg",
-      alt: "99 Life Hacks preview page 5",
-    },
-    {
-      src: "/images/page-6.jpg",
-      alt: "99 Life Hacks preview page 6",
-    },
-    {
-      src: "/images/page-7.jpg",
-      alt: "99 Life Hacks preview page 7",
-    },
-    {
-      src: "/images/page-8.jpg",
-      alt: "99 Life Hacks preview page 8",
-    },
-    {
-      src: "/images/page-9.jpg",
-      alt: "99 Life Hacks preview page 8",
-    },
+    { src: "/images/page-1.jpg", alt: "99 Life Hacks book cover" },
+    { src: "/images/page-2.jpg", alt: "99 Life Hacks preview page 2" },
+    { src: "/images/page-3.jpg", alt: "99 Life Hacks preview page 3" },
+    { src: "/images/page-4.jpg", alt: "99 Life Hacks preview page 4" },
+    { src: "/images/page-5.jpg", alt: "99 Life Hacks preview page 5" },
+    { src: "/images/page-6.jpg", alt: "99 Life Hacks preview page 6" },
+    { src: "/images/page-7.jpg", alt: "99 Life Hacks preview page 7" },
+    { src: "/images/page-8.jpg", alt: "99 Life Hacks preview page 8" },
+    { src: "/images/page-9.jpg", alt: "99 Life Hacks preview page 8" },
   ],
 };
 
@@ -158,28 +131,22 @@ function Logo({ compact = false, showWordmark = false }: { compact?: boolean; sh
 }
 
 function SectionIntro({
-  number,
   label,
   title,
   copy,
   light = false,
 }: {
-  number: string;
   label: string;
   title: string;
   copy: string;
   light?: boolean;
 }) {
   return (
-    <div className={`grid gap-7 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-12 ${light ? "text-[#07111F]" : ""}`}>
-      <div className="flex items-start gap-3 pt-2">
-        <span className={`font-display text-4xl font-extrabold leading-none ${light ? "text-[#07111F]/20" : "text-[#F4F0E8]/20"}`}>{number}</span>
-        <span className={`mt-2 h-px w-10 ${light ? "bg-[#07111F]/25" : "bg-[#55E6E0]/65"}`} />
-      </div>
+    <div className={`grid gap-4 lg:grid-cols-[1fr] ${light ? "text-[#07111F]" : ""}`}>
       <div className="max-w-2xl">
-        <p className={`eyebrow mb-4 ${light ? "!text-[#357D7C]" : ""}`}>{label}</p>
+        <p className={`eyebrow mb-3 ${light ? "!text-[#357D7C]" : ""}`}>{label}</p>
         <h2 className="font-display text-3xl font-extrabold tracking-[-.045em] sm:text-5xl">{title}</h2>
-        <p className={`mt-5 max-w-xl text-[15px] leading-7 ${light ? "text-[#07111F]/65" : "text-[#A7B5C5]"}`}>{copy}</p>
+        <p className={`mt-4 max-w-xl text-[15px] leading-7 ${light ? "text-[#07111F]/65" : "text-[#A7B5C5]"}`}>{copy}</p>
       </div>
     </div>
   );
@@ -220,9 +187,9 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
       </div>
       {menuOpen && (
         <div className="border-t border-white/[.08] bg-[#0A1728] px-5 pb-5 pt-3">
-          {links.map((link, index) => (
+          {links.map((link) => (
             <button key={link.id} onClick={() => { if (link.href) window.location.assign(link.href); else scrollToSection(link.id); setMenuOpen(false); }} className="flex w-full items-center gap-3 border-b border-white/[.07] py-4 text-left font-display text-sm font-bold text-[#F4F0E8]">
-              <span className="eyebrow text-[9px]">0{index + 1}</span>{link.label}<ArrowRight className="ml-auto h-4 w-4 text-[#55E6E0]" />
+              {link.label}<ArrowRight className="ml-auto h-4 w-4 text-[#55E6E0]" />
             </button>
           ))}
         </div>
@@ -232,6 +199,18 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
 }
 
 function Hero() {
+  const handleFillUpFormClick = () => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "InitiateCheckout", {
+        content_name: STORE_CONFIG.bookName,
+        value: STORE_CONFIG.bookPrice,
+        currency: "BDT",
+        content_type: "product",
+      });
+    }
+    scrollToSection("order");
+  };
+
   return (
     <section id="top" className="relative isolate overflow-hidden border-b border-white/[.07] bg-[#07111F]">
       <div className="absolute inset-x-0 top-0 h-44 bg-[radial-gradient(ellipse_at_top,rgba(255,207,39,.12),transparent_72%)]" />
@@ -239,17 +218,16 @@ function Hero() {
         <div className="inline-flex items-center gap-3 rounded-full border border-[#FFCF27]/70 bg-[#FFCF27]/12 px-4 py-2 font-display text-[11px] font-extrabold tracking-[.12em] shadow-[0_8px_22px_rgba(255,207,39,.12)]">
           <span className="text-[#A7B5C5] line-through decoration-[#FFCF27]/70 decoration-1">৳299</span>
           <span className="h-3 w-px bg-[#FFCF27]/45" />
-          <span className="text-[#FFCF27]">৳249</span>
+          <span className="text-[#FFCF27]">৳199</span>
         </div>
       </div>
       <div className="container relative flex min-h-[calc(100vh-72px)] flex-col items-center justify-center py-16 sm:py-20">
-        {/* Live Sold Counter Badge Right Above Cover Page */}
         <div className="reveal mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-[#081524]/85 px-4 py-1.5 text-xs backdrop-blur-md shadow-lg">
           <span className="relative flex h-2.5 w-2.5 items-center justify-center">
             <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative h-2 w-2 rounded-full bg-emerald-500" />
           </span>
-          <span className="font-display font-extrabold text-white">17</span>
+          <span className="font-display font-extrabold text-white">52</span>
           <span className="text-[#A7B5C5]">sold recently</span>
         </div>
 
@@ -257,15 +235,27 @@ function Hero() {
           <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-[#FFCF27]/18 blur-2xl" />
           <BookCover />
         </div>
-        <div className="reveal mt-8 flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: "100ms" }}>
-          <button onClick={() => scrollToSection("order")} className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-[#FFCF27]/70 bg-[linear-gradient(135deg,#FFCF27_0%,#F4B51F_100%)] px-6 py-3.5 font-display text-[12px] font-extrabold uppercase tracking-[.13em] text-[#07111F] shadow-[0_12px_28px_rgba(255,207,39,.25)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(255,207,39,.35)] active:scale-[.97]">
-            <span aria-hidden="true" className="absolute -left-6 top-0 h-full w-8 -skew-x-12 bg-white/35 transition-transform duration-500 group-hover:translate-x-36" />
-            <span className="relative">Order</span>
-            <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-          <button onClick={() => scrollToSection("preview")} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-display text-[12px] font-extrabold uppercase tracking-[.13em] text-[#F4F0E8] transition hover:border-[#55E6E0]/60 hover:bg-white/[.04] active:scale-[.97]">
-            Preview <Sparkles className="h-4 w-4 text-[#55E6E0]" />
-          </button>
+
+        <div className="reveal mt-8 flex flex-col items-center gap-3 w-full max-w-sm" style={{ animationDelay: "100ms" }}>
+          <div className="flex w-full items-center justify-center gap-3">
+            <button onClick={handleFillUpFormClick} className="group relative flex-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-[#FFCF27]/70 bg-[linear-gradient(135deg,#FFCF27_0%,#F4B51F_100%)] px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.12em] text-[#07111F] shadow-[0_12px_28px_rgba(255,207,39,.25)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(255,207,39,.35)] active:scale-[.97]">
+              <span aria-hidden="true" className="absolute -left-6 top-0 h-full w-8 -skew-x-12 bg-white/35 transition-transform duration-500 group-hover:translate-x-36" />
+              <span className="relative">Order</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button onClick={() => scrollToSection("preview")} className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.12em] text-[#F4F0E8] transition hover:border-[#55E6E0]/60 hover:bg-white/[.04] active:scale-[.97]">
+              Preview <Sparkles className="h-4 w-4 text-[#55E6E0]" />
+            </button>
+          </div>
+
+          <a
+            href="/track-order"
+            className="group w-full inline-flex items-center justify-center gap-2.5 rounded-full border border-[#55E6E0]/40 bg-[#55E6E0]/[.08] px-6 py-3.5 font-display text-[12px] font-extrabold uppercase tracking-[.14em] text-[#B8FFFA] shadow-[0_8px_20px_rgba(85,230,224,.12)] backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:border-[#55E6E0]/80 hover:bg-[#55E6E0]/20 hover:shadow-[0_12px_28px_rgba(85,230,224,.22)] active:scale-[.97]"
+          >
+            <PackageCheck className="h-4 w-4 text-[#55E6E0] transition-transform group-hover:scale-110" />
+            <span>Track Order</span>
+            <ArrowRight className="h-4 w-4 text-[#55E6E0] transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
@@ -327,6 +317,25 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
         bkashNumber: form.payment === "bkash" ? (form.bkashNumber.trim() || undefined) : undefined,
         transactionId: form.payment === "bkash" ? (form.transactionId.trim() || undefined) : undefined,
       });
+
+      // Pass exact order ID string for deduplication
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq(
+          "track",
+          "Purchase",
+          {
+            content_name: STORE_CONFIG.bookName,
+            value: created.total,
+            currency: "BDT",
+            num_items: created.quantity,
+            content_type: "product",
+          },
+          {
+            eventID: String(created.orderId),
+          }
+        );
+      }
+
       const order: OrderRecord = {
         ...form,
         orderId: created.orderId,
@@ -341,7 +350,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
       sessionStorage.setItem("curio-order-success", JSON.stringify({ orderId: created.orderId, fullName: created.fullName, phone: created.phone }));
       onOrder(order);
     } catch {
-      toast.error("Your order could not be placed.", { description: "Make sure the local server is running with pnpm dev, then try again." });
+      toast.error("Your order could not be placed.", { description: "Make sure the server is reachable and try again." });
     } finally {
       setSubmitting(false);
     }
@@ -349,7 +358,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
 
   return (
     <form onSubmit={submit} className="glass-panel rounded-2xl p-5 sm:p-8">
-      <div className="mb-8 flex items-start justify-between gap-5"><div><p className="eyebrow mb-2">Your details</p><h3 className="font-display text-2xl font-extrabold tracking-[-.04em]">Make it yours.</h3></div><span className="rounded-full border border-[#55E6E0]/25 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.15em] text-[#55E6E0]">Secure form</span></div>
+      <div className="mb-8 flex items-start justify-between gap-5"><div><p className="eyebrow mb-2">Your details</p><h3 className="font-display text-2xl font-extrabold tracking-[-.04em]">Get Your Copy.</h3></div><span className="rounded-full border border-[#55E6E0]/25 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.15em] text-[#55E6E0]">Secure form</span></div>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2"><FieldLabel>Full name</FieldLabel><div className="field-shell rounded-lg"><input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="Your name" className="w-full bg-transparent px-4 py-3 text-sm text-[#F4F0E8] placeholder:text-[#63778D] focus:outline-none" aria-invalid={!!errors.fullName} /> </div>{errors.fullName && <p className="mt-1.5 text-xs text-[#F28773]">{errors.fullName}</p>}</div>
         <div><FieldLabel>Contact number</FieldLabel><div className="field-shell flex items-center gap-2 rounded-lg px-4"><span className="text-xs text-[#71869C]">+880</span><input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="1XXXXXXXXX" className="w-full bg-transparent py-3 text-sm text-[#F4F0E8] placeholder:text-[#63778D] focus:outline-none" aria-invalid={!!errors.phone} /></div>{errors.phone && <p className="mt-1.5 text-xs text-[#F28773]">{errors.phone}</p>}</div>
@@ -357,7 +366,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
         <div className="sm:col-span-2"><FieldLabel>Delivery address</FieldLabel><div className="field-shell rounded-lg"><textarea value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="House, road, area, city" rows={3} className="w-full resize-none bg-transparent px-4 py-3 text-sm leading-6 text-[#F4F0E8] placeholder:text-[#63778D] focus:outline-none" aria-invalid={!!errors.address} /></div>{errors.address && <p className="mt-1.5 text-xs text-[#F28773]">{errors.address}</p>}</div>
       </div>
 
-      <div className="mt-8 border-t border-white/[.08] pt-7"><div className="mb-3 flex items-center justify-between"><FieldLabel>Delivery location</FieldLabel><span className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Bangladesh</span></div><div className="grid gap-3 sm:grid-cols-2">{(["dhaka", "outside"] as DeliveryLocation[]).map((location) => <label key={location} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition ${form.location === location ? "border-[#55E6E0]/55 bg-[#55E6E0]/[.08]" : "border-white/[.1] bg-white/[.02] hover:border-white/20"}`}><input type="radio" name="location" checked={form.location === location} onChange={() => update("location", location)} className="accent-[#55E6E0]" /><span className="flex-1"><span className="block text-sm font-semibold text-[#F4F0E8]">{location === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}</span><span className="mt-1 block text-xs text-[#71869C]">{money(location === "dhaka" ? STORE_CONFIG.insideDhakaCharge : STORE_CONFIG.outsideDhakaCharge)} delivery</span></span>{form.location === location && <Check className="h-4 w-4 text-[#55E6E0]" />}</label>)}</div></div>
+      <div className="mt-8 border-t border-white/[.08] pt-7"><div className="mb-3 flex items-center justify-between"><FieldLabel>Delivery location</FieldLabel><span className="text-[10px] uppercase tracking-[.13em] text-[#71869C]">Bangladesh</span></div><div className="grid gap-3 sm:grid-cols-2">{(["dhaka", "outside"] as DeliveryLocation[]).map((location) => <label key={location} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition ${form.location === location ? "border-[#55E6E0]/55 bg-[#55E6E0]/[.08]" : "border-white/[.1] bg-white/[.02] hover:border-white/20"}`}><input type="radio" name="location" checked={form.location === location} onChange={() => update("location", location)} className="accent-[#55E6E0]" /><span className="flex-1"><span className="block text-sm font-semibold text-[#F4F0E8]">{location === "dhaka" ? "Inside Dhaka" : "Outside Dhaka"}</span><span className="mt-1 block text-xs text-[#71869C]">{money(location === "dhaka" ? STORE_CONFIG.insideDhakaCharge : STORE_CONFIG.outsideDhakaCharge)} delivery</span></span>{form.location === location && <Check className="h-4 w-4 text-[#55E6E0]" strokeWidth={3} />}</label>)}</div></div>
 
       <div className="mt-8 grid gap-7 border-t border-white/[.08] pt-7 sm:grid-cols-2"><div><FieldLabel>Quantity</FieldLabel><div className="inline-flex items-center rounded-lg border border-white/[.13] bg-[#07111F]/45"><button type="button" onClick={() => update("quantity", Math.max(1, form.quantity - 1))} className="flex h-11 w-11 items-center justify-center text-[#A7B5C5] transition hover:text-[#55E6E0]" aria-label="Decrease quantity"><Minus className="h-4 w-4" /></button><span className="w-8 text-center font-display text-sm font-extrabold text-[#F4F0E8]">{form.quantity}</span><button type="button" onClick={() => update("quantity", form.quantity + 1)} className="flex h-11 w-11 items-center justify-center text-[#A7B5C5] transition hover:text-[#55E6E0]" aria-label="Increase quantity"><Plus className="h-4 w-4" /></button></div></div><div><FieldLabel optional>Note</FieldLabel><input value={form.note} onChange={(e) => update("note", e.target.value)} placeholder="A delivery note?" className="field-shell w-full rounded-lg px-4 py-3 text-sm text-[#F4F0E8] placeholder:text-[#63778D] focus:outline-none" /></div></div>
 
@@ -376,14 +385,13 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
                   {method === "cod" ? "Pay when your book arrives." : `Send Money to ${STORE_CONFIG.bkashNumber}. Copy the Bkash Transaction ID and paste.`}
                 </span>
               </span>
-              {form.payment === method && <Check className="h-4 w-4 text-[#55E6E0]" />}
+              {form.payment === method && <Check className="h-4 w-4 text-[#55E6E0]" strokeWidth={3} />}
             </label>
           ))}
         </div>
 
         {form.payment === "bkash" && (
           <div className="mt-4 grid gap-4 rounded-xl border border-[#55E6E0]/20 bg-[#55E6E0]/[.045] p-4">
-            {/* Professional One-Tap Copy Banner */}
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[#55E6E0]/30 bg-[#07111F]/70 p-3.5">
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#55E6E0]/15 text-[#55E6E0]">
@@ -401,7 +409,7 @@ function OrderForm({ onOrder, onDraftChange }: { onOrder: (order: OrderRecord) =
               >
                 {copiedBkash ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-[#55E6E0]" /> Copied!
+                    <Check className="h-3.5 w-3.5 text-[#55E6E0]" strokeWidth={3} /> Copied!
                   </>
                 ) : (
                   <>
@@ -442,7 +450,7 @@ function OrderSummary({ order, draft }: { order: OrderRecord | null; draft: Form
   return (
     <aside className="glass-panel h-fit overflow-hidden rounded-2xl lg:sticky lg:top-28">
       <div className="border-b border-white/[.08] px-5 py-5 sm:px-7"><div className="flex items-center justify-between"><div><p className="eyebrow mb-2">Order summary</p><h3 className="font-display text-xl font-extrabold">Your edition</h3></div><PackageCheck className="h-5 w-5 text-[#55E6E0]" /></div></div>
-      <div className="space-y-6 p-5 sm:p-7"><div className="flex gap-4"><BookCover small /><div className="min-w-0"><p className="font-display text-sm font-bold text-[#F4F0E8]">{STORE_CONFIG.bookName}</p><p className="mt-1 text-xs leading-5 text-[#71869C]">First edition<br />Hardcover · 208 pages</p><p className="mt-3 font-display text-sm font-bold text-[#55E6E0]">{money(STORE_CONFIG.bookPrice)}</p></div></div><div className="space-y-3 border-t border-white/[.08] pt-5 text-sm"><div className="flex justify-between text-[#91A3B8]"><span>Quantity</span><span className="text-[#F4F0E8]">× {quantity}</span></div><div className="flex justify-between text-[#91A3B8]"><span>Subtotal</span><span className="text-[#F4F0E8]">{money(subtotal)}</span></div><div className="flex justify-between text-[#91A3B8]"><span>Delivery · {location === "dhaka" ? "Dhaka" : "outside Dhaka"}</span><span className="text-[#F4F0E8]">{money(delivery)}</span></div></div><div className="border-t border-[#55E6E0]/25 pt-5"><div className="flex items-end justify-between"><span className="font-display text-xs font-bold uppercase tracking-[.13em] text-[#A7B5C5]">Total</span><span className="font-display text-3xl font-extrabold tracking-[-.05em] text-[#55E6E0]">{money(total)}</span></div><p className="mt-2 text-right text-[10px] uppercase tracking-[.13em] text-[#71869C]">{payment === "bkash" ? "bKash selected" : "Cash on delivery"}</p></div><div className="flex gap-3 rounded-lg bg-white/[.035] p-3 text-xs leading-5 text-[#71869C]"><CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-[#55E6E0]" /> Every order includes tracked delivery across Bangladesh.</div></div>
+      <div className="space-y-6 p-5 sm:p-7"><div className="flex gap-4"><BookCover small /><div className="min-w-0"><p className="font-display text-sm font-bold text-[#F4F0E8]">{STORE_CONFIG.bookName}</p><p className="mt-1 text-xs leading-5 text-[#71869C]">First edition<br />Hardcover · 110 pages</p><p className="mt-3 font-display text-sm font-bold text-[#55E6E0]">{money(STORE_CONFIG.bookPrice)}</p></div></div><div className="space-y-3 border-t border-white/[.08] pt-5 text-sm"><div className="flex justify-between text-[#91A3B8]"><span>Quantity</span><span className="text-[#F4F0E8]">× {quantity}</span></div><div className="flex justify-between text-[#91A3B8]"><span>Subtotal</span><span className="text-[#F4F0E8]">{money(subtotal)}</span></div><div className="flex justify-between text-[#91A3B8]"><span>Delivery · {location === "dhaka" ? "Dhaka" : "outside Dhaka"}</span><span className="text-[#F4F0E8]">{money(delivery)}</span></div></div><div className="border-t border-[#55E6E0]/25 pt-5"><div className="flex items-end justify-between"><span className="font-display text-xs font-bold uppercase tracking-[.13em] text-[#A7B5C5]">Total</span><span className="font-display text-3xl font-extrabold tracking-[-.05em] text-[#55E6E0]">{money(total)}</span></div><p className="mt-2 text-right text-[10px] uppercase tracking-[.13em] text-[#71869C]">{payment === "bkash" ? "bKash selected" : "Cash on delivery"}</p></div><div className="flex gap-3 rounded-lg bg-white/[.035] p-3 text-xs leading-5 text-[#71869C]"><CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-[#55E6E0]" /> Every order includes tracked delivery across Bangladesh.</div></div>
     </aside>
   );
 }
@@ -459,7 +467,6 @@ function Preview() {
   const touchStart = useRef<number | null>(null);
   const current = STORE_CONFIG.previewPages[page];
   const goToOrder = () => scrollToSection("order");
-  const goToTracking = () => window.location.assign("/track-order");
 
   useEffect(() => {
     setImageState("loading");
@@ -482,20 +489,119 @@ function Preview() {
     window.setTimeout(() => setTurning(false), 300);
     setPage(next);
   };
+
   return (
     <section id="preview" className="border-t border-white/[.07] bg-[#07111F] py-24 sm:py-32">
-      <div className="container"><div className="flex items-center justify-center gap-3"><span className="font-display font-extrabold leading-none text-[#F4F0E8]/20" style={{ fontSize: "37px" }}>02</span><span className="h-px w-8 bg-[#55E6E0]/65" /><h2 className="font-display text-center font-extrabold tracking-[-.045em] text-[#F4F0E8]" style={{ fontSize: "27px" }}>Read a few pages.</h2></div>
-        <div className="mt-14"><div className="relative mx-auto w-full max-w-[390px]"><div className="absolute -inset-5 rounded-[2rem] bg-[#55E6E0]/[.07] blur-xl" /><div onTouchStart={(e) => { touchStart.current = e.changedTouches[0].clientX; }} onTouchEnd={(e) => { if (touchStart.current === null) return; const delta = e.changedTouches[0].clientX - touchStart.current; if (Math.abs(delta) > 40) turn(delta < 0 ? 1 : -1); touchStart.current = null; }} className={`relative aspect-[1413/2000] overflow-hidden rounded-xl border border-white/15 bg-[#0D1B2D] shadow-[18px_24px_50px_rgba(0,0,0,.3)] ${turning ? "page-turn" : ""}`}>
-            {imageState !== "ready" && <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0D1B2D] px-6 text-center" aria-live="polite">{imageState === "loading" ? <><span className="h-7 w-7 animate-spin rounded-full border-2 border-[#55E6E0]/25 border-t-[#55E6E0]" /><p className="text-xs font-semibold text-[#A7B5C5]">Loading preview page…</p></> : <><p className="text-sm font-semibold text-[#F4F0E8]">Preview page could not load.</p><button type="button" onClick={retryCurrentPage} className="rounded-full border border-[#55E6E0]/45 px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#B8FFFA] transition hover:bg-[#55E6E0]/10">Try again</button></>}</div>}
-            <img key={`${page}-${retryNonce}`} src={current.src} alt={current.alt} loading={page === 0 ? "eager" : "lazy"} fetchPriority={page === 0 ? "high" : "auto"} decoding="async" onLoad={() => setImageState("ready")} onError={() => setImageState("error")} className={`h-full w-full object-cover transition-opacity duration-200 ${imageState === "ready" ? "opacity-100" : "opacity-0"}`} />
-          </div><div className="relative z-10 mt-5 flex items-center justify-between"><button onClick={() => turn(-1)} disabled={page === 0} className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#71869C] transition hover:text-[#55E6E0] disabled:opacity-30"><ChevronLeft className="h-4 w-4" /> Previous</button><span className="font-display text-sm font-extrabold text-[#F4F0E8]/60">Page {page + 1} <span className="font-normal">/</span> {STORE_CONFIG.previewPages.length}</span><button onClick={() => turn(1)} disabled={page === STORE_CONFIG.previewPages.length - 1} className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#71869C] transition hover:text-[#55E6E0] disabled:opacity-30">Next <ChevronRight className="h-4 w-4" /></button></div><div className="relative z-10 mt-8 flex flex-wrap justify-center gap-3"><button type="button" onClick={goToOrder} className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#55E6E0]/45 px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.13em] text-[#B8FFFA] transition hover:-translate-y-0.5 hover:bg-[#55E6E0]/10">Order after reading <ArrowRight className="h-4 w-4 text-[#55E6E0]" /></button><a href="https://drive.google.com/file/d/1XNaPlbdi3m7FkZ-mAKKoaIJmiLm0di_L/view?usp=sharing" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-white/15 px-4 py-3.5 font-display text-[10px] font-extrabold uppercase tracking-[.14em] text-[#A7B5C5] transition hover:-translate-y-0.5 hover:border-[#55E6E0]/55 hover:text-[#B8FFFA]">Open PDF <span className="ml-1 text-[#55E6E0]">↗</span></a><button type="button" onClick={goToTracking} className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/20 px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.13em] text-[#F4F0E8] transition hover:-translate-y-0.5 hover:border-[#55E6E0]/60 hover:bg-white/[.04]"><span className="text-[#55E6E0]">03</span> Track order <ArrowRight className="h-4 w-4 text-[#55E6E0]" /></button></div></div></div>
+      <div className="container">
+        <h2 className="font-display text-center font-extrabold tracking-[-.045em] text-[#F4F0E8] text-3xl sm:text-4xl">
+          Read a few pages.
+        </h2>
+        <div className="mt-14">
+          <div className="relative mx-auto w-full max-w-[390px]">
+            <div className="absolute -inset-5 rounded-[2rem] bg-[#55E6E0]/[.07] blur-xl" />
+            <div
+              onTouchStart={(e) => { touchStart.current = e.changedTouches[0].clientX; }}
+              onTouchEnd={(e) => {
+                if (touchStart.current === null) return;
+                const delta = e.changedTouches[0].clientX - touchStart.current;
+                if (Math.abs(delta) > 40) turn(delta < 0 ? 1 : -1);
+                touchStart.current = null;
+              }}
+              className={`relative aspect-[1413/2000] overflow-hidden rounded-xl border border-white/15 bg-[#0D1B2D] shadow-[18px_24px_50px_rgba(0,0,0,.3)] ${turning ? "page-turn" : ""}`}
+            >
+              {imageState !== "ready" && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0D1B2D] px-6 text-center" aria-live="polite">
+                  {imageState === "loading" ? (
+                    <>
+                      <span className="h-7 w-7 animate-spin rounded-full border-2 border-[#55E6E0]/25 border-t-[#55E6E0]" />
+                      <p className="text-xs font-semibold text-[#A7B5C5]">Loading preview page…</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm font-semibold text-[#F4F0E8]">Preview page could not load.</p>
+                      <button type="button" onClick={retryCurrentPage} className="rounded-full border border-[#55E6E0]/45 px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#B8FFFA] transition hover:bg-[#55E6E0]/10">
+                        Try again
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+              <img
+                key={`${page}-${retryNonce}`}
+                src={current.src}
+                alt={current.alt}
+                loading={page === 0 ? "eager" : "lazy"}
+                fetchPriority={page === 0 ? "high" : "auto"}
+                decoding="async"
+                onLoad={() => setImageState("ready")}
+                onError={() => setImageState("error")}
+                className={`h-full w-full object-cover transition-opacity duration-200 ${imageState === "ready" ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+            
+            <div className="relative z-10 mt-5 flex items-center justify-between">
+              <button onClick={() => turn(-1)} disabled={page === 0} className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#71869C] transition hover:text-[#55E6E0] disabled:opacity-30">
+                <ChevronLeft className="h-4 w-4" /> Previous
+              </button>
+              <span className="font-display text-sm font-extrabold text-[#F4F0E8]/60">
+                Page {page + 1} <span className="font-normal">/</span> {STORE_CONFIG.previewPages.length}
+              </span>
+              <button onClick={() => turn(1)} disabled={page === STORE_CONFIG.previewPages.length - 1} className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-[#71869C] transition hover:text-[#55E6E0] disabled:opacity-30">
+                Next <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="relative z-10 mt-8 flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={goToOrder}
+                className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-[#55E6E0]/45 px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.13em] text-[#B8FFFA] transition hover:-translate-y-0.5 hover:bg-[#55E6E0]/10"
+              >
+                Order after reading <ArrowRight className="h-4 w-4 text-[#55E6E0]" />
+              </button>
+              
+              <a
+                href="https://drive.google.com/file/d/1XNaPlbdi3m7FkZ-mAKKoaIJmiLm0di_L/view?usp=sharing"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3.5 font-display text-[11px] font-extrabold uppercase tracking-[.14em] text-[#A7B5C5] transition hover:-translate-y-0.5 hover:border-[#55E6E0]/55 hover:text-[#B8FFFA]"
+              >
+                Open PDF <span className="text-[#55E6E0]">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function About() {
-  return <section id="about" className="border-t border-white/[.07] py-24 sm:py-32"><div className="container"><SectionIntro number="04" label="OUR MISSION" title="Technology that works for you." copy="We built this platform to simplify your daily experience." /><div className="mt-14 grid gap-5 md:grid-cols-2">{STORE_CONFIG.authors.map((author, index) => <article key={author.name} className="group relative overflow-hidden rounded-2xl border border-white/[.1] bg-[#0D1B2D] p-6 transition hover:-translate-y-1 hover:border-[#55E6E0]/35 sm:p-8"><div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#55E6E0]/[.05] blur-2xl" /><div className="relative flex items-start gap-5"><div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-[#55E6E0]/45 bg-[#55E6E0]/[.08] shadow-[0_6px_18px_rgba(0,0,0,.24)]"><img src={author.portraitSrc} alt={`Portrait of ${author.name}`} className="h-full w-full object-cover object-center" /></div><div><p className="eyebrow mb-1">0{index + 1} / CURIO</p><h3 className="font-display text-xl font-extrabold tracking-[-.04em]">{author.name}</h3><p className="mt-1 text-xs uppercase tracking-[.13em] text-[#71869C]">{author.role}</p></div></div><p className="relative mt-7 max-w-md text-sm leading-7 text-[#A7B5C5]">{author.bio}</p></article>)}</div></div></section>;
+  return (
+    <section id="about" className="border-t border-white/[.07] py-24 sm:py-32">
+      <div className="container">
+        <SectionIntro label="OUR MISSION" title="Technology that works for you." copy="We built this platform to simplify your daily experience." />
+        <div className="mt-14 grid gap-5 md:grid-cols-2">
+          {STORE_CONFIG.authors.map((author) => (
+            <article key={author.name} className="group relative overflow-hidden rounded-2xl border border-white/[.1] bg-[#0D1B2D] p-6 transition hover:-translate-y-1 hover:border-[#55E6E0]/35 sm:p-8">
+              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#55E6E0]/[.05] blur-2xl" />
+              <div className="relative flex items-start gap-5">
+                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-[#55E6E0]/45 bg-[#55E6E0]/[.08] shadow-[0_6px_18px_rgba(0,0,0,.24)]">
+                  <img src={author.portraitSrc} alt={`Portrait of ${author.name}`} className="h-full w-full object-cover object-center" />
+                </div>
+                <div>
+                  <p className="eyebrow mb-1">CURIO</p>
+                  <h3 className="font-display text-xl font-extrabold tracking-[-.04em]">{author.name}</h3>
+                  <p className="mt-1 text-xs uppercase tracking-[.13em] text-[#71869C]">{author.role}</p>
+                </div>
+              </div>
+              <p className="relative mt-7 max-w-md text-sm leading-7 text-[#A7B5C5]">{author.bio}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Footer() {
@@ -514,28 +620,16 @@ function Footer() {
           <div>
             <p className="eyebrow mb-4">Explore</p>
             <div className="grid gap-3 text-sm text-[#A7B5C5]">
-              <button
-                className="w-fit transition hover:text-[#55E6E0]"
-                onClick={() => scrollToSection("order")}
-              >
+              <button className="w-fit transition hover:text-[#55E6E0]" onClick={() => scrollToSection("order")}>
                 Order a copy
               </button>
-              <button
-                className="w-fit transition hover:text-[#55E6E0]"
-                onClick={() => scrollToSection("preview")}
-              >
+              <button className="w-fit transition hover:text-[#55E6E0]" onClick={() => scrollToSection("preview")}>
                 Preview
               </button>
-              <a
-                className="w-fit transition hover:text-[#55E6E0]"
-                href="/track-order"
-              >
+              <a className="w-fit transition hover:text-[#55E6E0]" href="/track-order">
                 Track order
               </a>
-              <button
-                className="w-fit transition hover:text-[#55E6E0]"
-                onClick={() => scrollToSection("about")}
-              >
+              <button className="w-fit transition hover:text-[#55E6E0]" onClick={() => scrollToSection("about")}>
                 About Curio
               </button>
             </div>
@@ -550,33 +644,18 @@ function Footer() {
                 rel="noreferrer"
                 aria-label="Chat with Curio on WhatsApp"
               >
-                <img
-                  src="/images/whatsapp.png"
-                  alt="WhatsApp"
-                  className="h-[18px] w-[18px] shrink-0 object-contain"
-                />
+                <img src="/images/whatsapp.png" alt="WhatsApp" className="h-[18px] w-[18px] shrink-0 object-contain" />
                 {STORE_CONFIG.contactNumber}
               </a>
-              <a
-                className="flex items-center gap-2 transition hover:text-[#55E6E0]"
-                href={`mailto:${STORE_CONFIG.email}`}
-              >
+              <a className="flex items-center gap-2 transition hover:text-[#55E6E0]" href={`mailto:${STORE_CONFIG.email}`}>
                 <Copy className="h-4 w-4 text-[#55E6E0]" />
                 {STORE_CONFIG.email}
               </a>
               <div className="flex gap-3 pt-2">
-                <a
-                  href={STORE_CONFIG.socialLinks.instagram}
-                  aria-label="Instagram"
-                  className="rounded-full border border-white/10 p-2 transition hover:border-[#55E6E0]/50 hover:text-[#55E6E0]"
-                >
+                <a href={STORE_CONFIG.socialLinks.instagram} aria-label="Instagram" className="rounded-full border border-white/10 p-2 transition hover:border-[#55E6E0]/50 hover:text-[#55E6E0]">
                   <Instagram className="h-4 w-4" />
                 </a>
-                <a
-                  href={STORE_CONFIG.socialLinks.facebook}
-                  aria-label="Facebook"
-                  className="rounded-full border border-white/10 p-2 transition hover:border-[#55E6E0]/50 hover:text-[#55E6E0]"
-                >
+                <a href={STORE_CONFIG.socialLinks.facebook} aria-label="Facebook" className="rounded-full border border-white/10 p-2 transition hover:border-[#55E6E0]/50 hover:text-[#55E6E0]">
                   <Facebook className="h-4 w-4" />
                 </a>
               </div>
@@ -596,7 +675,43 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lastOrder, setLastOrder] = useState<OrderRecord | null>(null);
   const [draftForm, setDraftForm] = useState<FormState>(emptyForm);
-  useEffect(() => { if (lastOrder) window.location.assign("/order-success"); }, [lastOrder]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "ViewContent", {
+        content_name: STORE_CONFIG.bookName,
+        value: STORE_CONFIG.bookPrice,
+        currency: "BDT",
+        content_type: "product",
+      });
+    }
+  }, []);
+
   const orderTotalLabel = useMemo(() => lastOrder ? money(lastOrder.total) : money(STORE_CONFIG.bookPrice + STORE_CONFIG.insideDhakaCharge), [lastOrder]);
-  return <div className="min-h-screen overflow-x-hidden bg-[#07111F] text-[#F4F0E8]"><Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} /><main><Hero /><section id="order" className="scroll-mt-24 py-24 sm:py-32"><div className="container"><SectionIntro number="01" label="Reserve your copy" title="A simple order, thoughtfully handled." copy={`The first edition is ${money(STORE_CONFIG.bookPrice)}. Choose your destination and we’ll calculate the rest for you — no surprises at the last step.`} /><div className="mt-14 grid items-start gap-6 lg:grid-cols-[1.18fr_.82fr] lg:gap-8">{lastOrder ? <Confirmation order={lastOrder} /> : <OrderForm onOrder={setLastOrder} onDraftChange={setDraftForm} />}<OrderSummary order={lastOrder} draft={draftForm} /></div><div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-bold uppercase tracking-[.14em] text-[#53677D]"><span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#55E6E0]" /> Privacy-first checkout</span><span className="flex items-center gap-2"><Truck className="h-4 w-4 text-[#55E6E0]" /> Bangladesh-wide delivery</span><span className="flex items-center gap-2"><Zap className="h-4 w-4 text-[#55E6E0]" /> Instant confirmation</span><span className="sr-only">Current total {orderTotalLabel}</span></div></div></section><Preview /><About /></main><Footer /></div>;
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#07111F] text-[#F4F0E8]">
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <main>
+        <Hero />
+        <section id="order" className="scroll-mt-24 py-24 sm:py-32">
+          <div className="container">
+            <SectionIntro label="Reserve your copy" title="Guaranteed Delivery Across Bangladesh." copy={`The first edition is ${money(STORE_CONFIG.bookPrice)}. Estimated arrival in 4–7 days across Bangladesh.`} />
+            <div className="mt-14 grid items-start gap-6 lg:grid-cols-[1.18fr_.82fr] lg:gap-8">
+              {lastOrder ? <Confirmation order={lastOrder} /> : <OrderForm onOrder={setLastOrder} onDraftChange={setDraftForm} />}
+              <OrderSummary order={lastOrder} draft={draftForm} />
+            </div>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-bold uppercase tracking-[.14em] text-[#53677D]">
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#55E6E0]" /> Privacy-first checkout</span>
+              <span className="flex items-center gap-2"><Truck className="h-4 w-4 text-[#55E6E0]" /> Bangladesh-wide delivery</span>
+              <span className="flex items-center gap-2"><Zap className="h-4 w-4 text-[#55E6E0]" /> Instant confirmation</span>
+              <span className="sr-only">Current total {orderTotalLabel}</span>
+            </div>
+          </div>
+        </section>
+        <Preview />
+        <About />
+      </main>
+      <Footer />
+    </div>
+  );
 }

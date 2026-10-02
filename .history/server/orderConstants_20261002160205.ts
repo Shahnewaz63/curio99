@@ -1,6 +1,6 @@
-export const BOOK_PRICE = 249;
-export const INSIDE_DHAKA_CHARGE = 70;
-export const OUTSIDE_DHAKA_CHARGE = 120;
+export const BOOK_PRICE = 199;
+export const INSIDE_DHAKA_CHARGE = 60;
+export const OUTSIDE_DHAKA_CHARGE = 100;
 
 export function calculateOrderTotals(location: "dhaka" | "outside", quantity: number) {
   const deliveryCharge = location === "dhaka" ? INSIDE_DHAKA_CHARGE : OUTSIDE_DHAKA_CHARGE;

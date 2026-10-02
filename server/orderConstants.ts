@@ -1,4 +1,4 @@
-export const BOOK_PRICE = 249;
+export const BOOK_PRICE = 199;
 export const INSIDE_DHAKA_CHARGE = 60;
 export const OUTSIDE_DHAKA_CHARGE = 100;
 
